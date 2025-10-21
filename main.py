@@ -1,6 +1,5 @@
 from stats import get_num_words, get_char_counts, sort_char_counts
-
-BOOK_PATH = "./books/frankenstein.txt"
+import sys
 
 
 def get_book_text(book_path):
@@ -24,13 +23,19 @@ def print_header(h, sep="=", length=33):
 
 
 def main():
-    text = get_book_text(BOOK_PATH)
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        exit(1)
+    else:
+        book_path = sys.argv[1]
+
+    text = get_book_text(book_path)
     wc = get_num_words(text)
     char_dict = get_char_counts(text)
     sorted_chars = sort_char_counts(char_dict)
 
     print_header("BOOKBOT", "=")
-    print(f"Analyzing book found at {BOOK_PATH}...")
+    print(f"Analyzing book found at {book_path}...")
     print_header("Word Count", "-")
     print(f"Found {wc} total words")
     print_header("Character Count", "-")
